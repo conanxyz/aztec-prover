@@ -8,6 +8,9 @@
 - Using a domain-based email address (not a generic provider) increases the chance of successful registration.
 - You can get €20 by registering with the link [Hetzner](https://hetzner.cloud/?ref=721ngUYJcM8c), and after successful registration, use the code `LTT25` to get another €20.
 
+## System Requirements
+- It is recommended to use **Ubuntu OS** and have **Docker** installed. See the [Docker installation guide for Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
+
 ## Environment Variable Configuration
 Please modify the following variables in the `.env` file as needed:
 
