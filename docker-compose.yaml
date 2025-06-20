@@ -1,0 +1,52 @@
+services:
+  prover-node:
+    image: aztecprotocol/aztec:${VERSION}
+    restart: always
+    depends_on:
+      broker:
+        condition: service_started
+        required: true
+    environment:
+      # PROVER_COORDINATION_NODE_URL: "http://:8080"
+      P2P_ENABLED: "true"
+      DATA_DIRECTORY: /data
+      P2P_IP: ${P2P_IP}
+      DATA_STORE_MAP_SIZE_KB: "134217728"
+      ETHEREUM_HOSTS: ${L1_EXECUTION_HOST_URL}
+      L1_CONSENSUS_HOST_URLS: ${L1_CONSENSUS_HOST_URL}
+      LOG_LEVEL: info
+      PROVER_BROKER_HOST: http://broker:8080
+      PROVER_PUBLISHER_PRIVATE_KEY: ${PROVER_PUBLISHER_PRIVATE_KEY}
+    ports:
+      - "8080:8080"
+      - "40400:40400"
+      - "40400:40400/udp"
+    volumes:
+      - /data/prover:/data
+    entrypoint: >
+      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --archiver --prover-node'
+
+  agent:
+    image: aztecprotocol/aztec:${VERSION}
+    restart: always
+    entrypoint: >
+      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-agent'
+    environment:
+      PROVER_AGENT_COUNT: ${PROVER_AGENT_COUNT}
+      PROVER_AGENT_POLL_INTERVAL_MS: "5000"
+      PROVER_BROKER_HOST: http://broker:8080
+      PROVER_ID: ${PROVER_PUBLISHER_ADDRESS}
+    pull_policy: always
+
+  broker:
+    image: aztecprotocol/aztec:${VERSION}
+    restart: always
+    environment:
+      DATA_DIRECTORY: /data
+      ETHEREUM_HOSTS: ${L1_EXECUTION_HOST_URL}
+      LOG_LEVEL: info
+      P2P_IP: ${P2P_IP}
+    volumes:
+      - /data/broker:/data
+    entrypoint: >
+      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-broker'
