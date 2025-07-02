@@ -44,7 +44,7 @@ sudo mkdir -p /data/prover /data/broker
 1. Configure the `.env` file.
 2. Create the required directories.
 3. Open port 40400.
-4. Start the service (for example, using Docker Compose):
+4. Start the service:
 
 ```bash
 docker-compose up -d
