@@ -1,8 +1,8 @@
 # aztec-prover Usage Guide
 
 ## Server Requirements
-- It is recommended to use a server with more than **32 CPU cores** and **128GB RAM** for optimal performance.
-- The Hetzner AX series is recommended for hosting, but registration can be challenging:
+- It is recommended to use a server with more than **96 CPU cores** and **256GB RAM** for optimal performance.
+- The Hetzner is recommended for hosting, but registration can be challenging:
 - Use your real physical address during registration.
 - Avoid using a VPN.
 - Using a domain-based email address (not a generic provider) increases the chance of successful registration.
