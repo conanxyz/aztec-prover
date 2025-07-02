@@ -41,6 +41,8 @@ services:
   broker:
     image: aztecprotocol/aztec:${VERSION}
     restart: always
+    ports:
+      - "8081:8080"
     environment:
       DATA_DIRECTORY: /data
       ETHEREUM_HOSTS: ${L1_EXECUTION_HOST_URL}
